@@ -1,4 +1,9 @@
 """
+Yushu Song
+Assignment 4
+"""
+
+"""
 For your homework this week, you'll be creating a wsgi application of
 your own.
 
@@ -38,44 +43,58 @@ To submit your homework:
   * Commit and push your changes to your fork.
   * Submit a link to your Session03 fork repository!
 
-
 """
 
 import traceback
+
+def homepage():
+    '''
+    Display home page
+    '''
+    body = '<h1>Here is how to use this page...</h1>'
+    # item_template = '<li>{operation}: {operation} two oprands given format {operation}/operand1/oprand2</li>'
+    # for op in ['Add', 'Multiply', 'Divide', 'Abstract']:
+    #     body.append(item_template.format(op))
+    # body.append('</ul>')
+    # return '\n'.join(body)
+
+    return body
 
 def add(*args):
     """ Returns a STRING with the sum of the arguments """
 
     total = sum(map(int, args))
-    return total
+    return str(total)
 
 def multiply(*args):
     """ Returns a STRING with the sum of the arguments """
 
     # TODO: Fill sum with the correct value, based on the
     # args provided.
-    sum = "0"
+    left_op = int(args[0])
+    right_op = int(args[1])
 
-    return sum
+    return str(left_op * right_op)
 
 def subtract(*args):
     """ Returns a STRING with the sum of the arguments """
 
     # TODO: Fill sum with the correct value, based on the
     # args provided.
-    sum = "0"
+    left_op = int(args[0])
+    right_op = int(args[1])
 
-    return sum
+    return str(left_op - right_op)
 
 def divide(*args):
     """ Returns a STRING with the sum of the arguments """
 
     # TODO: Fill sum with the correct value, based on the
     # args provided.
-    sum = "0"
+    left_op = int(args[0])
+    right_op = int(args[1])
 
-    return sum
-
+    return str(left_op / right_op)
 
 def resolve_path(path):
     """
@@ -89,6 +108,7 @@ def resolve_path(path):
     # path.
 
     funcs = {
+        '': homepage,
         'add': add,
         'multiply': multiply,
         'subtract': subtract,
@@ -103,11 +123,6 @@ def resolve_path(path):
         func = funcs[func_name]
     except KeyError:
         raise NameError
-
-    return func, args
-
-    func = add
-    args = ['25', '32']
 
     return func, args
 
@@ -130,6 +145,9 @@ def application(environ, start_response):
     except NameError:
         status = "404 Not Found"
         body = "<h1>Not Found</h1>"
+    except ZeroDivisionError:
+        status = "400 Bad Request"
+        body = "<h1>Numerator Cannot Be Zero</h1>"
     except Exception:
         status = "500 Internal Server Error"
         body = "<h1>Internal Server Error</h1>"
