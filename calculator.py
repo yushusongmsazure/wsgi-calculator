@@ -10,10 +10,10 @@ def homepage():
     Display home page
     '''
     body = ['<h1>Here is how to use this page...</h1>']
-    body.append('<h2>Add:      http://localhost:8080/add/23/42      => 65</h2>')
-    body.append('<h2>Multiply: http://localhost:8080/add/12/5       => 60</h2>')
-    body.append('<h2>Divide:   http://localhost:8080/add/75/5       => 15</h2>')
-    body.append('<h2>subtract: http://localhost:8080/add/22/2       => 11</h2>')
+    body.append('<h3>Add:      http://localhost:8080/add/23/42      </h3>')
+    body.append('<h3>Multiply: http://localhost:8080/multiply/12/5  </h3>')
+    body.append('<h3>Divide:   http://localhost:8080/divide/75/5    </h3>')
+    body.append('<h3>Subtract: http://localhost:8080/subtract/22/2  </h3>')
 
     return '\n'.join(body)
 
@@ -73,6 +73,7 @@ def resolve_path(path):
     return func, args
 
 def application(environ, start_response):
+
     headers = [("Content-type", "text/html")]
     try:
         path = environ.get('PATH_INFO', None)
